@@ -1,30 +1,34 @@
 // components/DeleteStageConfirmationDialog.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from "react";
 
 const ConfirmationDialog = ({ isOpen, onClose, onConfirm, stageName }) => {
+  const dialogRef = useRef(null); // Create a ref for the dialog
+
   useEffect(() => {
-    // Define the Escape key handler
     const handleEscape = (event) => {
-      if (event.key === 'Escape') {
-        onClose(); // Call the onClose function if Escape is pressed
+      if (event.key === "Escape") {
+        onClose(); // Close the dialog if Escape key is pressed
       }
     };
 
-    // Add event listener when the dialog is open
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
+      document.addEventListener("keydown", handleEscape);
+      dialogRef.current && dialogRef.current.focus(); // Focus the dialog when open
     }
 
-    // Clean up the event listener when the dialog is closed
     return () => {
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener("keydown", handleEscape);
     };
-  }, [isOpen, onClose]); // Dependency array ensures this runs when isOpen changes
+  }, [isOpen, onClose]);
 
-  if (!isOpen) return null; // Don’t render if the dialog is closed
+  if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+    <div
+      className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50"
+      tabIndex={-1}
+      ref={dialogRef} // Set the ref here
+    >
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <p className="text-center text-gray-800 mb-4">
           Are you sure you want to delete '{stageName}'?

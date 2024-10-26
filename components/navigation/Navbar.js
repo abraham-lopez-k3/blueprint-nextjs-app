@@ -20,7 +20,7 @@ const Navbar = ({ onOpen, onSave, onPrint, onNew, onAdd }) => {
       <div className="flex flex-row sm:flex-col sm:w-full space-x-2 sm:space-x-0 sm:space-y-4 sm:mt-0">
         <button
           onClick={onNew}
-          className="flex items-center justify-center sm:justify-start p-2 bg-sky-600 hover:bg-sky-500 rounded sm:w-full"
+          className="flex items-center justify-center sm:justify-start p-2 bg-sky-600 hover:bg-sky-500 rounded sm:w-full transition-all duration-200 ease-in-out"
         >
           <AiOutlineFileAdd className="text-2xl mr-0 sm:mr-2" />
           <span className="hidden sm:inline">New</span>
@@ -28,7 +28,7 @@ const Navbar = ({ onOpen, onSave, onPrint, onNew, onAdd }) => {
 
         <button
           onClick={onOpen}
-          className="flex items-center justify-center sm:justify-start p-2 bg-sky-600 hover:bg-sky-500 rounded sm:w-full"
+          className="flex items-center justify-center sm:justify-start p-2 bg-sky-600 hover:bg-sky-500 rounded sm:w-full transition-all duration-200 ease-in-out"
         >
           <AiOutlineFolderOpen className="text-2xl mr-0 sm:mr-2" />
           <span className="hidden sm:inline">Open</span>
@@ -36,7 +36,7 @@ const Navbar = ({ onOpen, onSave, onPrint, onNew, onAdd }) => {
 
         <button
           onClick={onSave}
-          className="flex items-center justify-center sm:justify-start p-2 bg-sky-600 hover:bg-sky-500 rounded sm:w-full"
+          className="flex items-center justify-center sm:justify-start p-2 bg-sky-600 hover:bg-sky-500 rounded sm:w-full transition-all duration-200 ease-in-out"
         >
           <AiOutlineSave className="text-2xl mr-0 sm:mr-2" />
           <span className="hidden sm:inline">Save</span>
@@ -44,7 +44,7 @@ const Navbar = ({ onOpen, onSave, onPrint, onNew, onAdd }) => {
 
         <button
           onClick={onPrint}
-          className="flex items-center justify-center sm:justify-start p-2 bg-sky-600 hover:bg-sky-500 rounded sm:w-full"
+          className="flex items-center justify-center sm:justify-start p-2 bg-sky-600 hover:bg-sky-500 rounded sm:w-full transition-all duration-200 ease-in-out"
         >
           <AiOutlinePrinter className="text-2xl mr-0 sm:mr-2" />
           <span className="hidden sm:inline">Print</span>
@@ -53,7 +53,7 @@ const Navbar = ({ onOpen, onSave, onPrint, onNew, onAdd }) => {
         <hr className="my-4 mb-8 border-gray-700 hidden sm:block" />
         <button
           onClick={onAdd}
-          className="flex items-center justify-center sm:justify-start p-2 bg-orange-500 hover:bg-orange-400 rounded sm:w-full"
+          className="flex items-center justify-center sm:justify-start p-2 bg-orange-500 hover:bg-orange-400 rounded sm:w-full transition-all duration-200 ease-in-out"
         >
           <AiOutlinePlus className="text-2xl mr-0 sm:mr-2" />
           <span className="hidden sm:inline">Add stage</span>

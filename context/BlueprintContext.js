@@ -1,24 +1,37 @@
-// context/BlueprintContext.js
-import { createContext, useContext, useEffect, useState } from 'react';
-import initialBlueprintData from '../public/blueprintExample.json';
+import { createContext, useContext, useEffect, useState } from "react";
+import initialBlueprintData from "../public/blueprintExample.json";
 
 const BlueprintContext = createContext();
 
 export const BlueprintProvider = ({ children }) => {
-  // Set initial blueprint to an empty array (or your desired initial state)
-  const [blueprint, setBlueprint] = useState(initialBlueprintData.blueprint);
+  // Ensure that the initial blueprint includes unique ids if not already present
+  const [blueprint, setBlueprint] = useState(() => {
+    const blueprintWithIds = initialBlueprintData.blueprint.map(
+      (stage, index) => ({
+        ...stage,
+        id: stage.id || Date.now() + index, // Assign a unique ID if not present
+      })
+    );
+    return blueprintWithIds;
+  });
 
   useEffect(() => {
     // Only load data from local storage after the component has mounted (client-side only)
-    const savedBlueprint = localStorage.getItem('blueprintData');
+    const savedBlueprint = localStorage.getItem("blueprintData");
     if (savedBlueprint) {
-      setBlueprint(JSON.parse(savedBlueprint));
+      const parsedBlueprint = JSON.parse(savedBlueprint).map(
+        (stage, index) => ({
+          ...stage,
+          id: stage.id || Date.now() + index, // Ensure that loaded stages also have unique ids
+        })
+      );
+      setBlueprint(parsedBlueprint);
     }
   }, []);
 
   useEffect(() => {
     // Store blueprint data in local storage whenever it changes
-    localStorage.setItem('blueprintData', JSON.stringify(blueprint));
+    localStorage.setItem("blueprintData", JSON.stringify(blueprint));
   }, [blueprint]);
 
   return (

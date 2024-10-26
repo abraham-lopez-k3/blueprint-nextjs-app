@@ -8,7 +8,7 @@ import SupportProcesses from "./section/SupportProcesses";
 import PhysicalEvidence from "./section/PhysicalEvidence";
 
 const Stage = forwardRef(
-  ({ index, stageData, maxHeights, sectionRefs, onDelete }, ref) => {
+  ({ index, stageData, maxHeights, sectionRefs, onEdit, onDelete }, ref) => {
     // Initialize the refs for each category within this stage
     if (!sectionRefs.current[index]) {
       sectionRefs.current[index] = {};
@@ -22,13 +22,13 @@ const Stage = forwardRef(
       >
         {/* Edit and Delete Buttons */}
         <button
-          onClick={() => console.log(`Editing stage: ${stageData.stage}`)}
+          onClick={() => onEdit(stageData.id)} // Use the unique id for edit
           className="absolute top-2 right-10 text-xs text-blue-600 bg-blue-100 hover:bg-blue-200 px-2 py-1 rounded"
         >
           Edit
         </button>
         <button
-          onClick={() => onDelete(index)}
+          onClick={() => onDelete(stageData.id)} // Use the unique id for delete
           className="absolute top-2 right-2 text-xs text-red-600 bg-red-100 hover:bg-red-200 px-2 py-1 rounded"
         >
           Delete

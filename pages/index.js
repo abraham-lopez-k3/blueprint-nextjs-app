@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import dynamic from "next/dynamic"; // Import next/dynamic
 import Navbar from "../components/navigation/Navbar";
 import Blueprint from "../components/Blueprint";
+import EditStageDialog from "../components/dialogs/EditStageDialog";
 import DeleteStageConfirmationDialog from "../components/dialogs/DeleteStageConfirmationDialog";
 import NewBlueprintConfirmationDialog from "../components/dialogs/NewBlueprintConfirmationDialog";
 import { useBlueprint } from "../context/BlueprintContext";
@@ -30,8 +31,18 @@ const HomePage = () => {
       reader.onload = (e) => {
         try {
           const importedData = JSON.parse(e.target.result);
-          setBlueprint(importedData);
-          localStorage.setItem("blueprintData", JSON.stringify(importedData));
+
+          // Generate new unique IDs for each stage
+          const updatedData = importedData.map((stage) => ({
+            ...stage,
+            id: Date.now() + Math.random(), // Generate a new ID
+          }));
+
+          // Clear existing local storage blueprint data before importing
+          localStorage.removeItem("blueprintData");
+
+          setBlueprint(updatedData);
+          localStorage.setItem("blueprintData", JSON.stringify(updatedData));
           setRecalculateHeightsFlag((prev) => !prev);
           setBlueprintLoaded(true);
         } catch (error) {
@@ -47,7 +58,12 @@ const HomePage = () => {
 
   const handleSave = () => {
     const saveBlueprintToFile = () => {
-      const dataToSave = blueprint;
+      // Create a deep copy of the blueprint data to avoid mutating the existing state
+      const dataToSave = blueprint.map((stage) => ({
+        ...stage,
+        id: Date.now() + Math.random(), // Generate a unique ID using timestamp and random number
+      }));
+
       const jsonStr = JSON.stringify(dataToSave, null, 2);
 
       const now = new Date();
@@ -134,6 +150,7 @@ const HomePage = () => {
     setBlueprint([
       ...blueprint,
       {
+        id: Date.now(), // Generate a unique ID based on the timestamp
         stage: `Stage ${blueprint.length + 1}`,
         customerEmotions: "",
         customerActions: "",
@@ -145,17 +162,41 @@ const HomePage = () => {
     ]);
   };
 
-  const handleDelete = (index) => {
-    setSelectedStage(blueprint[index]);
+  const handleDelete = (stageId) => {
+    const stageToDelete = blueprint.find((stage) => stage.id === stageId);
+    setSelectedStage(stageToDelete);
     setIsDeleteDialogOpen(true);
   };
 
   const confirmDelete = () => {
     const updatedBlueprint = blueprint.filter(
-      (stage) => stage !== selectedStage
+      (stage) => stage.id !== selectedStage.id
     );
     setBlueprint(updatedBlueprint);
     setIsDeleteDialogOpen(false);
+  };
+
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [selectedStageForEdit, setSelectedStageForEdit] = useState(null);
+
+  const handleEditStage = (stageId) => {
+    const stageToEdit = blueprint.find((stage) => stage.id === stageId);
+    setSelectedStageForEdit(stageToEdit);
+    setIsEditDialogOpen(true);
+  };
+
+  const confirmEditStage = (editedStage) => {
+    const updatedBlueprint = blueprint.map((stage) =>
+      stage.id === editedStage.id ? editedStage : stage
+    );
+    setBlueprint(updatedBlueprint);
+    setIsEditDialogOpen(false);
+  };
+
+  const triggerDeleteFromEdit = (stage) => {
+    setSelectedStage(stage);
+    setIsEditDialogOpen(false);
+    setIsDeleteDialogOpen(true);
   };
 
   return (
@@ -174,6 +215,7 @@ const HomePage = () => {
         ref={blueprintRef} // Use the ref to target the section for PDF conversion
       >
         <Blueprint
+          onEdit={handleEditStage} // Pass handleEditStage to Blueprint
           onDelete={handleDelete}
           recalculateHeightsFlag={recalculateHeightsFlag}
         />
@@ -200,6 +242,14 @@ const HomePage = () => {
         isOpen={isNewDialogOpen}
         onClose={() => setIsNewDialogOpen(false)}
         onConfirm={confirmNewBlueprint}
+      />
+
+      <EditStageDialog
+        isOpen={isEditDialogOpen}
+        onClose={() => setIsEditDialogOpen(false)}
+        onSave={confirmEditStage}
+        onDelete={triggerDeleteFromEdit}
+        stageData={selectedStageForEdit}
       />
     </div>
   );

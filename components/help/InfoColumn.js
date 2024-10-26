@@ -51,7 +51,7 @@ const InfoColumn = ({ maxHeights }) => {
         </p>
       </div>
       <div
-        className="mb-8 pt-4 pb-4"
+        className="mb-0 pt-4 pb-0"
         style={{ minHeight: maxHeights.physicalEvidence }}
       >
         <h3 className="font-bold text-purple-500">Physical Evidence</h3>
