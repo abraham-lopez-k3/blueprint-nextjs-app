@@ -29,7 +29,7 @@ const ConfirmationDialog = ({ isOpen, onClose, onConfirm, stageName }) => {
       tabIndex={-1}
       ref={dialogRef} // Set the ref here
     >
-      <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="bg-white p-6 rounded-lg shadow-lg m-4 sm:m-0">
         <p className="text-center text-gray-800 mb-4">
           Are you sure you want to delete '{stageName}'?
         </p>

@@ -8,7 +8,7 @@ import SupportProcesses from "./section/SupportProcesses";
 import PhysicalEvidence from "./section/PhysicalEvidence";
 
 const Stage = forwardRef(
-  ({ index, stageData, maxHeights, sectionRefs, onEdit, onDelete }, ref) => {
+  ({ index, stageData, maxHeights, sectionRefs, onEdit }, ref) => {
     // Initialize the refs for each category within this stage
     if (!sectionRefs.current[index]) {
       sectionRefs.current[index] = {};
@@ -20,22 +20,13 @@ const Stage = forwardRef(
         ref={ref}
         tabIndex={-1}
       >
-        {/* Edit and Delete Buttons */}
-        <button
-          onClick={() => onEdit(stageData.id)} // Use the unique id for edit
-          className="absolute top-2 right-10 text-xs text-blue-600 bg-blue-100 hover:bg-blue-200 px-2 py-1 rounded"
+        {/* Stage Title - Clickable */}
+        <h2
+          className="text-lg font-semibold truncate mb-4 cursor-pointer text-blue-600 hover:underline pr-2"
+          onClick={() => onEdit(stageData.id)} // Make the title clickable
         >
-          Edit
-        </button>
-        <button
-          onClick={() => onDelete(stageData.id)} // Use the unique id for delete
-          className="absolute top-2 right-2 text-xs text-red-600 bg-red-100 hover:bg-red-200 px-2 py-1 rounded"
-        >
-          Delete
-        </button>
-
-        {/* Stage Title */}
-        <h2 className="text-lg font-semibold mb-4">{stageData.stage}</h2>
+          {stageData.stage}
+        </h2>
 
         {/* Section Components with Consistent minHeight per Category */}
         <CustomerEmotions

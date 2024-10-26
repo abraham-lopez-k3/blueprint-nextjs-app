@@ -29,7 +29,7 @@ const NewBlueprintConfirmationDialog = ({ isOpen, onClose, onConfirm }) => {
       tabIndex={-1}
       ref={dialogRef} // Set the ref here
     >
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm mx-4">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm mx-4 m-4 sm:m-0">
         <p className="text-center text-gray-800 mb-4">
           Are you sure you want to reset the blueprint to its default state?
         </p>

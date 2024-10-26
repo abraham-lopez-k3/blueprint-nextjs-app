@@ -4,7 +4,7 @@ import React, { forwardRef } from "react";
 const PhysicalEvidence = forwardRef(({ data, minHeight }, ref) => (
   <div
     ref={ref}
-    className="mb-0 p-4 bg-purple-300 rounded-lg shadow-sm"
+    className="mb-4 p-4 bg-purple-300 rounded-lg shadow-sm"
     style={{ minHeight }}
   >
     <h3 className="font-bold">Physical Evidence</h3>

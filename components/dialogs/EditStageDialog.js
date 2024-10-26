@@ -46,7 +46,7 @@ const EditStageDialog = ({ isOpen, onClose, onSave, onDelete, stageData }) => {
         tabIndex={-1}
         ref={dialogRef} // Set the ref here
       >
-        <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
+        <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg m-4 sm:m-0">
           <h2 className="text-xl font-bold mb-4">Edit Stage</h2>
 
           {/* Check if editedStage exists before rendering fields */}

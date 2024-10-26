@@ -33,7 +33,7 @@ const CustomerEmotions = forwardRef(({ data, minHeight }, ref) => {
   return (
     <div
       ref={ref}
-      className="mb-8 p-4 border-2 border-orange-300 bg-orange-50 rounded-lg shadow-sm flex items-center justify-center"
+      className="mb-4 p-4 border-2 border-orange-300 bg-orange-50 rounded-lg shadow-sm flex items-center justify-center"
       style={{ minHeight }}
     >
       <span className="text-4xl">{emotionEmoji || "❓"}</span>
