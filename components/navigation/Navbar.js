@@ -3,11 +3,12 @@ import React from "react";
 import {
   AiOutlineFolderOpen,
   AiOutlineSave,
+  AiOutlinePrinter,
   AiOutlinePlus,
   AiOutlineFileAdd,
 } from "react-icons/ai";
 
-const Navbar = ({ onOpen, onSave, onNew, onAdd }) => {
+const Navbar = ({ onOpen, onSave, onPrint, onNew, onAdd }) => {
   return (
     <nav className="bg-gray-800 text-white p-4 shadow-lg z-10 fixed top-0 w-full sm:w-64 sm:left-0 sm:top-0 sm:h-screen flex flex-row sm:flex-col items-center sm:items-start">
       {/* Title with truncation */}
@@ -40,6 +41,15 @@ const Navbar = ({ onOpen, onSave, onNew, onAdd }) => {
           <AiOutlineSave className="text-2xl mr-0 sm:mr-2" />
           <span className="hidden sm:inline">Save</span>
         </button>
+
+        <button
+          onClick={onPrint}
+          className="flex items-center justify-center sm:justify-start p-2 bg-sky-600 hover:bg-sky-500 rounded sm:w-full"
+        >
+          <AiOutlinePrinter className="text-2xl mr-0 sm:mr-2" />
+          <span className="hidden sm:inline">Print</span>
+        </button>
+
         <hr className="my-4 mb-8 border-gray-700 hidden sm:block" />
         <button
           onClick={onAdd}

@@ -1,5 +1,5 @@
-// pages/index.js
 import React, { useState, useRef } from "react";
+import dynamic from "next/dynamic"; // Import next/dynamic
 import Navbar from "../components/navigation/Navbar";
 import Blueprint from "../components/Blueprint";
 import DeleteStageConfirmationDialog from "../components/dialogs/DeleteStageConfirmationDialog";
@@ -15,6 +15,7 @@ const HomePage = () => {
   const [recalculateHeightsFlag, setRecalculateHeightsFlag] = useState(false);
   const [blueprintLoaded, setBlueprintLoaded] = useState(false);
   const fileInputRef = useRef(null);
+  const blueprintRef = useRef(); // Add ref for the blueprint section
 
   const handleOpen = () => {
     if (fileInputRef.current) {
@@ -80,6 +81,55 @@ const HomePage = () => {
     setIsNewDialogOpen(false);
   };
 
+  const handlePrint = async () => {
+    // Define DPI as a constant
+    const DPI = 96;
+
+    // Dynamically import html2pdf.js only on the client side
+    const html2pdf = (await import("html2pdf.js")).default;
+    const elementContainer = blueprintRef.current;
+
+    // Access the first child of the container, which is the actual Blueprint content
+    const element = elementContainer.firstElementChild;
+
+    // Get current date and time for the filename
+    const now = new Date();
+    const dateStamp = now.toLocaleDateString("en-GB").replace(/\//g, "");
+    const timeStamp = now
+      .toLocaleTimeString("en-GB", { hour12: false })
+      .replace(/:/g, "");
+    const pdfFilename = `Blueprint-${dateStamp}-${timeStamp}.pdf`;
+
+    // Get the dimensions of the element
+    const elementWidth = element.scrollWidth; // Full width in pixels
+    const elementHeight = element.scrollHeight; // Full height in pixels
+
+    // Convert pixels to millimeters based on the defined DPI
+    const pxToMm = (px) => (px * 25.4) / DPI;
+    const pdfWidth = pxToMm(elementWidth);
+    const pdfHeight = pxToMm(elementHeight);
+
+    // Define options for html2pdf
+    const options = {
+      margin: [0.5, 0.5, 0.5, 0.5], // Adjust margins (top, right, bottom, left)
+      filename: pdfFilename,
+      html2canvas: {
+        scale: 4, // Increase the scale for better quality
+        useCORS: true, // Enable cross-origin images
+        allowTaint: true, // Allow cross-origin resources (may be required for some images)
+        dpi: DPI, // Use the defined DPI
+      },
+      jsPDF: {
+        unit: "mm", // Use millimeters as unit
+        format: [pdfWidth, pdfHeight], // Use calculated dimensions as custom page size
+        orientation: pdfWidth > pdfHeight ? "landscape" : "portrait", // Set orientation dynamically
+      },
+    };
+
+    // Generate and save the PDF
+    html2pdf().from(element).set(options).save();
+  };
+
   const handleAddStage = () => {
     setBlueprint([
       ...blueprint,
@@ -114,11 +164,15 @@ const HomePage = () => {
         onOpen={handleOpen}
         onSave={handleSave}
         onNew={handleNew}
+        onPrint={handlePrint}
         onAdd={handleAddStage}
       />
 
       {/* Adjust content layout based on navbar position */}
-      <div className="flex-1 mt-16 sm:mt-0 sm:ml-64 ml-0 pt-2 sm:pt-0 overflow-auto">
+      <div
+        className="flex-1 mt-16 sm:mt-0 sm:ml-64 ml-0 pt-2 sm:pt-0 overflow-auto"
+        ref={blueprintRef} // Use the ref to target the section for PDF conversion
+      >
         <Blueprint
           onDelete={handleDelete}
           recalculateHeightsFlag={recalculateHeightsFlag}
