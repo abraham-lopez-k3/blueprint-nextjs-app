@@ -69,7 +69,7 @@ const Blueprint = forwardRef(({ onDelete, recalculateHeightsFlag }, ref) => {
   };
 
   return (
-    <div className="flex overflow-x-auto p-4 pl-8 gap-8 blueprint-container">
+    <div className="flex overflow-x-auto p-4 sm:p-4 pl-0 sm:pl-4 gap-8 blueprint-container">
       <InfoColumn maxHeights={maxHeights} />
 
       {blueprint.map((stage, index) => (

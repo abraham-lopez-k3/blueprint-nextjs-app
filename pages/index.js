@@ -13,11 +13,10 @@ const HomePage = () => {
   const [isNewDialogOpen, setIsNewDialogOpen] = useState(false);
   const [selectedStage, setSelectedStage] = useState(null);
   const [recalculateHeightsFlag, setRecalculateHeightsFlag] = useState(false);
-  const [blueprintLoaded, setBlueprintLoaded] = useState(false); // New state to track blueprint loading
-  const fileInputRef = useRef(null); // Reference for the file input
+  const [blueprintLoaded, setBlueprintLoaded] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleOpen = () => {
-    // Trigger the file input to open when the user clicks 'Open'
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
@@ -30,10 +29,9 @@ const HomePage = () => {
       reader.onload = (e) => {
         try {
           const importedData = JSON.parse(e.target.result);
-          // Update blueprint state and local storage
           setBlueprint(importedData);
           localStorage.setItem("blueprintData", JSON.stringify(importedData));
-          setRecalculateHeightsFlag((prev) => !prev); // Ensure recalculation occurs
+          setRecalculateHeightsFlag((prev) => !prev);
           setBlueprintLoaded(true);
         } catch (error) {
           console.error("Error parsing JSON file:", error);
@@ -52,10 +50,10 @@ const HomePage = () => {
       const jsonStr = JSON.stringify(dataToSave, null, 2);
 
       const now = new Date();
-      const dateStamp = now.toLocaleDateString("en-GB").replace(/\//g, ""); // Format as DDMMYYYY
+      const dateStamp = now.toLocaleDateString("en-GB").replace(/\//g, "");
       const timeStamp = now
         .toLocaleTimeString("en-GB", { hour12: false })
-        .replace(/:/g, ""); // Format as HHmm
+        .replace(/:/g, "");
       const filename = `Blueprint-${dateStamp}-${timeStamp}.json`;
 
       const blob = new Blob([jsonStr], { type: "application/json" });
@@ -111,7 +109,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col sm:flex-row h-screen">
       <Navbar
         onOpen={handleOpen}
         onSave={handleSave}
@@ -119,7 +117,8 @@ const HomePage = () => {
         onAdd={handleAddStage}
       />
 
-      <div className="flex-1 ml-64 overflow-auto p-4 pl-0">
+      {/* Adjust content layout based on navbar position */}
+      <div className="flex-1 mt-16 sm:mt-0 sm:ml-64 ml-0 pt-2 sm:pt-0 overflow-auto">
         <Blueprint
           onDelete={handleDelete}
           recalculateHeightsFlag={recalculateHeightsFlag}
