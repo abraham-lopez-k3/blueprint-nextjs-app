@@ -1,3 +1,4 @@
+// components/Blueprint.js
 import React, { useLayoutEffect, useState, useRef, forwardRef } from "react";
 import Stage from "./stage/Stage";
 import InfoColumn from "./help/InfoColumn";
@@ -49,6 +50,38 @@ const Blueprint = forwardRef(
       setMaxHeights(heights);
     };
 
+    // Move stage left by swapping positions
+    const handleMoveLeft = (stage) => {
+      if (stage.position === 1) return;
+      const newPosition = stage.position - 1;
+      const updatedBlueprint = blueprint.map((s) => {
+        if (s.position === newPosition) {
+          return { ...s, position: stage.position };
+        }
+        if (s.id === stage.id) {
+          return { ...s, position: newPosition };
+        }
+        return s;
+      });
+      setBlueprint(updatedBlueprint.sort((a, b) => a.position - b.position));
+    };
+
+    // Move stage right by swapping positions
+    const handleMoveRight = (stage) => {
+      if (stage.position === blueprint.length) return;
+      const newPosition = stage.position + 1;
+      const updatedBlueprint = blueprint.map((s) => {
+        if (s.position === newPosition) {
+          return { ...s, position: stage.position };
+        }
+        if (s.id === stage.id) {
+          return { ...s, position: newPosition };
+        }
+        return s;
+      });
+      setBlueprint(updatedBlueprint.sort((a, b) => a.position - b.position));
+    };
+
     // Trigger reset and recalculation after the blueprint and DOM updates
     useLayoutEffect(() => {
       resetHeights();
@@ -69,8 +102,10 @@ const Blueprint = forwardRef(
               maxHeights={maxHeights}
               sectionRefs={sectionRefs}
               onEdit={onEdit}
-              onDelete={() => onDelete(stage.id)}
-              ref={null}
+              onMoveLeft={() => handleMoveLeft(stage)}
+              onMoveRight={() => handleMoveRight(stage)}
+              isFirst={stage.position === 1}
+              isLast={stage.position === blueprint.length}
             />
           ))}
       </div>

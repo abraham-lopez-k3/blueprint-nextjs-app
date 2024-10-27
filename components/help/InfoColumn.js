@@ -5,6 +5,9 @@ const InfoColumn = ({ maxHeights }) => {
   return (
     <div className="flex-shrink-0 p-0 w-64">
       <h2 className="text-lg font-semibold mb-4">Key</h2>
+      <h3 className="font-semibold mb-5 mt-3" data-html2canvas-ignore="true">
+        Actions
+      </h3>
       <div
         className="mb-4 pt-4"
         style={{ minHeight: maxHeights.customerEmotions }}
