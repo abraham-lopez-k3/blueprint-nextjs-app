@@ -55,37 +55,24 @@ const Blueprint = forwardRef(
       calculateMaxHeights();
     }, [recalculateHeightsFlag, blueprint]);
 
-    const addStage = () => {
-      const newStage = {
-        id: Date.now(), // Generate a unique ID based on timestamp
-        stage: `Stage ${blueprint.length + 1}`,
-        customerEmotions: "",
-        customerActions: "",
-        frontstageInteractions: "",
-        backstageInteractions: "",
-        supportProcesses: "",
-        physicalEvidence: "",
-      };
-
-      setBlueprint([...blueprint, newStage]);
-    };
-
     return (
       <div className="flex overflow-x-auto p-4 sm:p-4 pl-4 sm:pl-6 gap-8 blueprint-container">
         <InfoColumn maxHeights={maxHeights} />
 
-        {blueprint.map((stage, index) => (
-          <Stage
-            key={stage.id} // Use id as the key
-            index={index}
-            stageData={stage}
-            maxHeights={maxHeights}
-            sectionRefs={sectionRefs}
-            onEdit={onEdit} // Pass the onEdit function to each Stage component
-            onDelete={() => onDelete(stage.id)} // Pass id to the delete handler
-            ref={index === blueprint.length - 1 ? newStageRef : null}
-          />
-        ))}
+        {blueprint
+          .sort((a, b) => a.position - b.position) // Sort by position
+          .map((stage) => (
+            <Stage
+              key={stage.id}
+              index={stage.position - 1} // Use position-based index
+              stageData={stage}
+              maxHeights={maxHeights}
+              sectionRefs={sectionRefs}
+              onEdit={onEdit}
+              onDelete={() => onDelete(stage.id)}
+              ref={null}
+            />
+          ))}
       </div>
     );
   }

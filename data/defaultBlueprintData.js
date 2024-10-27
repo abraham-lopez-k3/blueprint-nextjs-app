@@ -1,6 +1,7 @@
 export const defaultBlueprintData = [
   {
     id: Date.now() + 1, // Unique ID using timestamp
+    position: 1,
     stage: "Awareness 2",
     customerEmotions: "Happy",
     customerActions: "Customer sees an ad for the service on social media.",
@@ -11,6 +12,7 @@ export const defaultBlueprintData = [
   },
   {
     id: Date.now() + 2, // Unique ID using timestamp
+    position: 2,
     stage: "Consideration 2",
     customerEmotions: "Disappointed",
     customerActions:
@@ -24,6 +26,7 @@ export const defaultBlueprintData = [
   },
   {
     id: Date.now() + 3, // Unique ID using timestamp
+    position: 3,
     stage: "Purchase 2",
     customerEmotions: "",
     customerActions: "Customer adds item to cart and completes checkout.",
@@ -35,6 +38,7 @@ export const defaultBlueprintData = [
   },
   {
     id: Date.now() + 4, // Unique ID using timestamp
+    position: 4,
     stage: "Delivery 2",
     customerEmotions: "Frustrated",
     customerActions:
@@ -48,6 +52,7 @@ export const defaultBlueprintData = [
   },
   {
     id: Date.now() + 5, // Unique ID using timestamp
+    position: 5,
     stage: "Post-Service 2",
     customerEmotions: "Happy",
     customerActions:

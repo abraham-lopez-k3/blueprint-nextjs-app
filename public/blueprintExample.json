@@ -2,6 +2,7 @@
   "blueprint": [
     {
       "id": 1,
+      "position": 2,
       "stage": "Awareness",
       "customerEmotions": "Happy",
       "customerActions": "Customer sees an ad for the service on social media.",
@@ -12,6 +13,7 @@
     },
     {
       "id": 2,
+      "position": 1,
       "stage": "Consideration",
       "customerEmotions": "Disappointed",
       "customerActions": "Customer visits website, browses services, and reads reviews.",
@@ -22,6 +24,7 @@
     },
     {
       "id": 3,
+      "position": 3,
       "stage": "Purchase",
       "customerEmotions": "",
       "customerActions": "Customer adds item to cart and completes checkout.",
@@ -32,6 +35,7 @@
     },
     {
       "id": 4,
+      "position": 4,
       "stage": "Delivery",
       "customerEmotions": "Frustrated",
       "customerActions": "Customer receives updates on delivery and receives product.",
@@ -42,6 +46,7 @@
     },
     {
       "id": 5,
+      "position": 5,
       "stage": "Post-Service",
       "customerEmotions": "Happy",
       "customerActions": "Customer provides feedback or contacts support for any issues.",

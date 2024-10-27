@@ -32,13 +32,13 @@ const HomePage = () => {
         try {
           const importedData = JSON.parse(e.target.result);
 
-          // Generate new unique IDs for each stage
-          const updatedData = importedData.map((stage) => ({
+          // Reassign new IDs and fix positions to be sequential
+          const updatedData = importedData.map((stage, index) => ({
             ...stage,
-            id: Date.now() + Math.random(), // Generate a new ID
+            id: Date.now() + Math.random(),
+            position: index + 1, // Ensure positions are sequential
           }));
 
-          // Clear existing local storage blueprint data before importing
           localStorage.removeItem("blueprintData");
 
           setBlueprint(updatedData);
@@ -147,11 +147,13 @@ const HomePage = () => {
   };
 
   const handleAddStage = () => {
+    const newPosition = blueprint.length + 1;
     setBlueprint([
       ...blueprint,
       {
-        id: Date.now(), // Generate a unique ID based on the timestamp
-        stage: `Stage ${blueprint.length + 1}`,
+        id: Date.now(),
+        position: newPosition, // Set new position based on length
+        stage: `Stage ${newPosition}`,
         customerEmotions: "",
         customerActions: "",
         frontstageInteractions: "",
@@ -169,9 +171,11 @@ const HomePage = () => {
   };
 
   const confirmDelete = () => {
-    const updatedBlueprint = blueprint.filter(
-      (stage) => stage.id !== selectedStage.id
-    );
+    const updatedBlueprint = blueprint
+      .filter((stage) => stage.id !== selectedStage.id)
+      .sort((a, b) => a.position - b.position)
+      .map((stage, index) => ({ ...stage, position: index + 1 }));
+
     setBlueprint(updatedBlueprint);
     setIsDeleteDialogOpen(false);
   };
@@ -186,9 +190,69 @@ const HomePage = () => {
   };
 
   const confirmEditStage = (editedStage) => {
-    const updatedBlueprint = blueprint.map((stage) =>
-      stage.id === editedStage.id ? editedStage : stage
+    const originalStage = blueprint.find(
+      (stage) => stage.id === editedStage.id
     );
+
+    if (!originalStage) {
+      // If the stage is not found, exit the function
+      console.error("Stage not found, unable to update position.");
+      setIsEditDialogOpen(false);
+      return;
+    }
+
+    const originalPosition = originalStage.position;
+    const newPosition = editedStage.position;
+
+    let updatedBlueprint = blueprint;
+
+    if (newPosition !== originalPosition) {
+      if (newPosition > originalPosition) {
+        // If the new position is greater, move other stages up (shift down)
+        updatedBlueprint = blueprint.map((stage) => {
+          if (
+            stage.id !== editedStage.id &&
+            stage.position > originalPosition &&
+            stage.position <= newPosition
+          ) {
+            return { ...stage, position: stage.position - 1 };
+          }
+          return stage;
+        });
+      } else if (newPosition < originalPosition) {
+        // If the new position is less, move other stages down (shift up)
+        updatedBlueprint = blueprint.map((stage) => {
+          if (
+            stage.id !== editedStage.id &&
+            stage.position >= newPosition &&
+            stage.position < originalPosition
+          ) {
+            return { ...stage, position: stage.position + 1 };
+          }
+          return stage;
+        });
+      }
+
+      // Update the edited stage to the new position
+      updatedBlueprint = updatedBlueprint.map((stage) =>
+        stage.id === editedStage.id ? { ...editedStage } : stage
+      );
+
+      // Ensure the array is sorted by position
+      updatedBlueprint.sort((a, b) => a.position - b.position);
+
+      // Confirm all positions are sequential (1-based)
+      updatedBlueprint = updatedBlueprint.map((stage, index) => ({
+        ...stage,
+        position: index + 1,
+      }));
+    } else {
+      // If position hasn't changed, just update the other fields
+      updatedBlueprint = updatedBlueprint.map((stage) =>
+        stage.id === editedStage.id ? { ...editedStage } : stage
+      );
+    }
+
     setBlueprint(updatedBlueprint);
     setIsEditDialogOpen(false);
   };
@@ -250,6 +314,7 @@ const HomePage = () => {
         onSave={confirmEditStage}
         onDelete={triggerDeleteFromEdit}
         stageData={selectedStageForEdit}
+        totalStages={blueprint.length} // Pass total stages correctly
       />
     </div>
   );

@@ -25,7 +25,7 @@ const Stage = forwardRef(
           className="text-lg font-semibold truncate mb-4 cursor-pointer text-blue-600 hover:underline pr-2"
           onClick={() => onEdit(stageData.id)} // Make the title clickable
         >
-          {stageData.stage}
+          {stageData.position}. {stageData.stage}
         </h2>
 
         {/* Section Components with Consistent minHeight per Category */}
