@@ -7,6 +7,7 @@ import BackstageInteractions from "./section/BackstageInteractions";
 import SupportProcesses from "./section/SupportProcesses";
 import PhysicalEvidence from "./section/PhysicalEvidence";
 import { FiChevronLeft, FiChevronRight, FiEdit } from "react-icons/fi";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Stage = forwardRef(
   (
@@ -18,6 +19,7 @@ const Stage = forwardRef(
       onEdit,
       onMoveLeft,
       onMoveRight,
+      onDelete, // Add onDelete prop
       isFirst,
       isLast,
     },
@@ -52,9 +54,16 @@ const Stage = forwardRef(
           </button>
 
           <button
+            onClick={() => onDelete(stageData.id)} // Use onDelete handler
+            className="p-2 bg-red-100 hover:bg-red-200 text-rose-600 disabled:opacity-50 rounded"
+          >
+            <RiDeleteBin6Line />
+          </button>
+
+          <button
             onClick={onMoveLeft}
             disabled={isFirst}
-            className="p-2 bg-blue-100 bg-blue-100 hover:bg-blue-200 text-blue-600 disabled:opacity-50 rounded"
+            className="p-2 bg-blue-100 hover:bg-blue-200 text-blue-600 disabled:opacity-50 rounded"
           >
             <FiChevronLeft />
           </button>

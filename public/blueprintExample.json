@@ -2,58 +2,14 @@
   "blueprint": [
     {
       "id": 1,
-      "position": 2,
-      "stage": "Awareness",
-      "customerEmotions": "Happy",
-      "customerActions": "Customer sees an ad for the service on social media.",
-      "frontstageInteractions": "Social media ad display and website link.",
-      "backstageInteractions": "Marketing team runs targeted ad campaigns.",
-      "supportProcesses": "CRM system for targeted marketing; ad management tools.",
-      "physicalEvidence": "Social media posts, website content, display ads."
-    },
-    {
-      "id": 2,
       "position": 1,
-      "stage": "Consideration",
-      "customerEmotions": "Disappointed",
-      "customerActions": "Customer visits website, browses services, and reads reviews.",
-      "frontstageInteractions": "Website homepage, search filters, and product listings.",
-      "backstageInteractions": "Backend processes manage content and ensure up-to-date data.",
-      "supportProcesses": "Content management system (CMS) and review aggregator.",
-      "physicalEvidence": "Website visuals, customer testimonials, review pages."
-    },
-    {
-      "id": 3,
-      "position": 3,
-      "stage": "Purchase",
-      "customerEmotions": "",
-      "customerActions": "Customer adds item to cart and completes checkout.",
-      "frontstageInteractions": "Shopping cart, checkout flow, and payment confirmation.",
-      "backstageInteractions": "Order processing and inventory check.",
-      "supportProcesses": "Payment gateway, order management system.",
-      "physicalEvidence": "Confirmation email, digital receipt."
-    },
-    {
-      "id": 4,
-      "position": 4,
-      "stage": "Delivery",
-      "customerEmotions": "Frustrated",
-      "customerActions": "Customer receives updates on delivery and receives product.",
-      "frontstageInteractions": "Delivery tracking, SMS or app notifications.",
-      "backstageInteractions": "Dispatch assigns delivery personnel; updates tracking.",
-      "supportProcesses": "Logistics management system, GPS tracking.",
-      "physicalEvidence": "Package, delivery status notifications, tracking page."
-    },
-    {
-      "id": 5,
-      "position": 5,
-      "stage": "Post-Service",
+      "stage": "Getting started",
       "customerEmotions": "Happy",
-      "customerActions": "Customer provides feedback or contacts support for any issues.",
-      "frontstageInteractions": "Customer support chat or feedback form in app.",
-      "backstageInteractions": "Support team processes feedback or resolves issues.",
-      "supportProcesses": "Customer support platform, feedback analysis tool.",
-      "physicalEvidence": "Thank-you email, feedback confirmation message."
+      "customerActions": "Create a new (+) blueprint from the menu or start by editing this one.",
+      "frontstageInteractions": "Add stages as required using the '+ Add stage' button.",
+      "backstageInteractions": "Modify the contents of each stage using the 'Edit' button, '<' or '>' button to change the order.",
+      "supportProcesses": "Data persisted using local storage, or save your data and come back later.",
+      "physicalEvidence": "Built using Next.js, React, Tailwind, ChatGPT 4 and hosted on GitHub pages."
     }
   ]
 }

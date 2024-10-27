@@ -103,25 +103,27 @@ const EditStageDialog = ({
               )
           )}
 
-          <div className="flex justify-end space-x-2 mt-6">
+          <div className="flex justify-between items-center mt-6">
             <button
               onClick={() => onDelete(editedStage)}
               className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-500"
             >
               Delete
             </button>
-            <button
-              onClick={onClose}
-              className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleSave}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
-            >
-              Save
-            </button>
+            <div className="flex space-x-2">
+              <button
+                onClick={onClose}
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
       </div>

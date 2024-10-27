@@ -102,6 +102,7 @@ const Blueprint = forwardRef(
               maxHeights={maxHeights}
               sectionRefs={sectionRefs}
               onEdit={onEdit}
+              onDelete={onDelete} // Pass down the delete handler
               onMoveLeft={() => handleMoveLeft(stage)}
               onMoveRight={() => handleMoveRight(stage)}
               isFirst={stage.position === 1}

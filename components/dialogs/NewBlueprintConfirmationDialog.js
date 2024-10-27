@@ -31,7 +31,8 @@ const NewBlueprintConfirmationDialog = ({ isOpen, onClose, onConfirm }) => {
     >
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm mx-4 m-4 sm:m-0">
         <p className="text-center text-gray-800 mb-4">
-          Are you sure you want to reset the blueprint to its default state?
+          Are you sure you want create a new blueprint, all current changes will
+          be lost?
         </p>
         <div className="flex justify-around">
           <button
