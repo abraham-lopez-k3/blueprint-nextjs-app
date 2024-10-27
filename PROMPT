@@ -1,0 +1,30 @@
+Prompt primer for ChatGPT 4:
+
+I want to continue working on my Blueprint App. It's a Next.js project that creates and manages service blueprints, currently live at https://blueprint.objetd.co.uk. Last time, we added features like stage reordering and inline editing.
+
+The app structure is as follows:
+/public // Static assets
+/components // Reusable React components
+└─ /dialogs // Dialog components (Edit, Delete confirmations)
+└─ /stage // Components related to individual stages
+└─ /help // Components like InfoColumn for extra information
+/context // React context for managing blueprint state
+/pages // Next.js pages
+└─ index.js // Main application entry point
+/data // Default data and examples
+/styles // Global and component-specific styles
+/next.config.mjs // Next.js configuration
+
+The app uses the following technologies:
+
+- Next.js for the overall framework
+- React for building UI components
+- Tailwind CSS for styling
+- React-icons for button icons
+- GitHub Pages for deployment
+- HTML2Canvas for generating printable PDFs
+- All the code was written by ChatGPT-4.
+
+Ensure comments are retained in your responses, always output the full file, not just a snippet of the change required.
+
+Here's what I want to work on next: [describe your new feature, bug fix, or improvement].
