@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Service Blueprint App
+
+This is a web application built with [Next.js](https://nextjs.org) that allows users to create, edit, and manage service blueprints. The app is designed to be simple yet powerful, providing users with the ability to add, reorder, and modify stages in a service blueprint, and export their work to PDF or JSON.
+
+## Features
+
+- **Interactive Stage Management**: Add, edit, delete, and reorder stages.
+- **Customizable Blueprints**: Modify various details of each stage.
+- **Export Options**: Save blueprints as PDF or JSON files.
+- **Responsive Design**: Optimized for various screen sizes.
+- **Offline Storage**: Blueprints are saved locally using `localStorage`.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+To run this application locally, ensure you have the following installed:
+
+- Node.js (v14 or later)
+- npm (v6 or later)
+
+### Installation
+
+Clone the repository and navigate to the project directory:
+
+```bash
+git clone https://github.com/humpherson/blueprint-app.git
+cd blueprint-app``
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+### Development
+
+To start the development server, run:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the app.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+The app will automatically reload when you make changes to the code.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Building for Production
 
-## Learn More
+To build the app for production:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To start the production server after building:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run start
+```
 
-## Deploy on Vercel
+### Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The app is deployed using GitHub Pages on a custom domain [https://www.objetd.co.uk](https://www.objetd.co.uk). The deployment is configured with a custom `next.config.mjs` to handle static paths correctly.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To deploy to GitHub Pages:
+
+1.  Ensure your `next.config.mjs` is correctly set up to use the `assetPrefix` and `basePath` configurations.
+
+2.  Run:
+    ```bash
+    npm run build
+    npm run export
+    ```
+3.  Push the changes to the `gh-pages` branch of your repository.
+
+## Libraries and Frameworks
+
+### Core Framework
+
+- **[Next.js](https://nextjs.org/)**: React-based framework for building server-side and static web applications.
+
+### UI Libraries
+
+- **[Tailwind CSS](https://tailwindcss.com/)**: Utility-first CSS framework for styling.
+- **React Icons**: Icon library used for stage controls (Edit, Delete, Left, Right).
+
+### Other Libraries
+
+- **[html2pdf.js](https://github.com/eKoopmans/html2pdf.js/)**: Used for exporting blueprints as PDF.
+- **react-icons**: Provides icons for the UI.
+
+## Technical Design
+
+### Blueprint Management
+
+The app uses a **local state** approach for managing blueprints, with each stage in a blueprint represented as an object containing details such as position, name, and actions. The data is stored in `localStorage` to persist user inputs across sessions.
+
+### Reordering and Editing
+
+Reordering is facilitated by dynamically adjusting the `position` property, which allows stages to be moved up or down. Changes are saved immediately to ensure consistency.
+
+### PDF and JSON Export
+
+Blueprints can be exported as PDFs for easy sharing, using the `html2pdf.js` library. Users can also download the blueprint as a JSON file, which can be re-uploaded later to restore the same configuration.
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request if you have ideas for new features or improvements.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
